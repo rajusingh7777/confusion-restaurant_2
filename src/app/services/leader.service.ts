@@ -12,6 +12,12 @@ export class LeaderService {
     return LEADERS;
   }
 
+  // this method is not used anywhere in Assignment2
+  getLeader(id1: number): Leader{
+    return LEADERS.filter((leader)=>(leader.id===id1))[0];
+  }
+
+  // used to return featured leader assigned true 
   getFeaturedLeader(): Leader{
     return LEADERS.filter((leader)=>(leader.featured))[0]
   }
