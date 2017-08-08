@@ -6,21 +6,33 @@
 
 <p>{{ user | json }}</p>
 
-<form novalidate (ngSubmit)="onSubmit()" >
+<form novalidate (ngSubmit)="onSubmit()" #loginForm="ngForm" >
 
   <md-dialog-content>
-    <md-input-container>
-      <input mdInput type="text" placeholder="username" [(ngModel)]="user.username" name="username" required>
-    </md-input-container>
-    <md-input-container>
-      <input mdInput type="password" placeholder="password" [(ngModel)]="user.password" name="password" required>
-    </md-input-container>
+    <p>
+      <md-input-container dividerColor="{{username.invalid && !username.pristine ? warn : primary}}">
+        <input mdInput type="text" placeholder="username" [(ngModel)]="user.username" name="username" #username="ngModel" required>
+      </md-input-container>
+      <md-hint>
+        <span [hidden]="username.pristine">
+          <span [hidden]="!username.errors?.required">username is required</span>
+        </span>
+      </md-hint>
+      <md-input-container dividerColor="{{password.invalid && !password.pristine ? warn : primary}}">
+        <input mdInput type="password" placeholder="password" [(ngModel)]="user.password" name="password" #password="ngModel" required>
+      </md-input-container>
+      <md-hint>
+        <span [hidden]="password.pristine">
+          <span [hidden]="!password.errors?.required">password is required</span>
+        </span>
+      </md-hint>
+    </p>
     <md-checkbox [(ngModel)]="user.remember" name="remember">Remember me</md-checkbox>
   </md-dialog-content>
 
   <md-dialog-actions>
     <button md-button md-dialog-close>Cancel</button>
-    <button md-button type="sumbit" class="background-primary text-floral-white">Login</button>
+    <button md-button type="sumbit" class="background-primary text-floral-white" [disabled]="loginForm.form.invalid">Login</button>
   </md-dialog-actions>
 
 </form>
