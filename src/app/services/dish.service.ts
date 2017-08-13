@@ -4,8 +4,8 @@ import { Dish } from '../shared/dish'
 import { DISHES } from '../shared/dishes'
 
 import { Observable } from 'rxjs/Rx';   //to include of operator used Rx instead of Objservable or use seperate- import 'rxjs/add/observable/of
-import 'rxjs/add/Operator/toPromise';
-import 'rxjs/add/Operator/delay'
+// import 'rxjs/add/Operator/toPromise';
+// import 'rxjs/add/Operator/delay'
 
 @Injectable()
 export class DishService {
