@@ -19,6 +19,10 @@
       </p>
     </md-card-content>
   </md-card>
+  <div [hidden]='dish'>
+    <md-spinner></md-spinner>
+    <h4>Loading...Please wait</h4>
+  </div>  
 
   <!--promotion contents-->
   <md-card *ngIf="promotion" fxFlex>
@@ -33,7 +37,11 @@
       <p>{{promotion.description}}
       </p>
     </md-card-content>
-  </md-card>  
+  </md-card>
+  <div [hidden]='promotion'>
+    <md-spinner></md-spinner>
+    <h4>Loading...Please wait</h4>
+  </div>   
 
   <!--leader contents-->
   <md-card *ngIf="leader" fxFlex>
@@ -47,6 +55,10 @@
       <p>{{leader.designation}}</p>
       <p>{{leader.description}}</p>
     </md-card-content>
-  </md-card> 
+  </md-card>
+  <div [hidden]='leader'>
+    <md-spinner></md-spinner>
+    <h4>Loading...Please wait</h4>
+  </div> 
 
 </div>

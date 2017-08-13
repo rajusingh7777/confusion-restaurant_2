@@ -7,16 +7,19 @@ export class PromotionService {
 
   constructor() { }
 
-  getPromotions(): Promotion[]{
-    return PROMOTIONS;
+  getPromotions(): Promise<Promotion[]>{
+    return new Promise(resolve=>{setTimeout(()=>resolve(PROMOTIONS),2000);
+    });
   }
 
-  getPromotion(id1 : number) : Promotion{
-    return PROMOTIONS.filter((promo)=>(promo.id===id1))[0]
+  getPromotion(id1 : number) : Promise<Promotion>{
+    return new Promise(resolve=>{setTimeout(()=>resolve(PROMOTIONS.filter((promo)=>(promo.id===id1))[0]),2000);
+    })
   }
 
-  getFeaturedPromotion(): Promotion{
-    return PROMOTIONS.filter((promo)=>(promo.featured))[0]
+  getFeaturedPromotion(): Promise<Promotion>{
+    return new Promise(resolve=>{setTimeout(()=>resolve(PROMOTIONS.filter((promo)=>(promo.featured))[0]),2000);
+    });
   }
 
 }
