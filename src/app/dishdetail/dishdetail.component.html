@@ -42,18 +42,18 @@
       <md-list-item *ngFor="let a of dish.comments">
         <p md-line>{{ a.comment }}</p>
         <p md-line>{{ a.rating }} Stars</p>
-        <p md-line> -- {{ a.author }} {{ a.date | date }}</p>
+        <p md-line>--&nbsp;{{ a.author }} {{ a.date | date }}</p>
       </md-list-item>
       <!-- Display the list of live comment -->
-      <md-list-item *ngIf="feedbackForm.valid">
-          <p md-line>{{ feedbackForm.value.author }} </p>
-          <p md-line>{{ feedbackForm.value.rating }} Stars</p>
-          <p md-line>-- {{ feedbackForm.value.comment }}</p> 
+      <md-list-item *ngIf="commentRatingForm.valid">
+          <p md-line>{{ commentRatingForm.value.author }} </p>
+          <p md-line>{{ commentRatingForm.value.rating }} Stars</p>
+          <p md-line>--&nbsp;{{ commentRatingForm.value.comment }}</p> 
       </md-list-item>
     </md-list>
 
     <!--Feedback and Rating forms  -->
-    <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+    <form novalidate [formGroup]="commentRatingForm" (ngSubmit)="onSubmit()">
       <p>
         <md-input-container class="full-width" dividerColor="{{ formErrors.author ? 'warn' : 'primary' }}">
           <input mdInput formControlName = "author" placeholder="Name" type="text" required>
@@ -73,7 +73,7 @@
         </md-hint>
         </md-input-container>
       </p> 
-      <button type="submit" md-button class="background-primary text-floral-white"[disabled]="feedbackForm.invalid">Submit</button>
+      <button type="submit" md-button class="background-primary text-floral-white"[disabled]="commentRatingForm.invalid">Submit</button>
     </form> 
   </div>
   <div [hidden]='dish'>

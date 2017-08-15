@@ -9,7 +9,7 @@ import { DishService } from '../services/dish.service';
 import 'rxjs/add/operator/switchMap' //use switchMap instead of switchmap to avoid warning 
 
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
-import { Feedback, ContactType } from '../shared/feedback';
+import { Comment } from '../shared/comment';
 
 @Component({
   selector: 'app-dishdetail',
@@ -21,8 +21,8 @@ export class DishdetailComponent implements OnInit {
   dishIds : number[];
   prev : number;
   next : number;
-  feedbackForm : FormGroup;
-  feedback : Feedback;
+  commentRatingForm : FormGroup;
+  comment : Comment;
 
   constructor(private dishservice: DishService,
     private route: ActivatedRoute,
@@ -69,22 +69,21 @@ export class DishdetailComponent implements OnInit {
 
   commentForm(){
       let today = new Date();
-      this.feedbackForm = this.fb.group({
+      this.commentRatingForm = this.fb.group({
       rating : [5],
       author : ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
       comment : ['', Validators.required],
-      date : [today.toISOString()],
       })
 
-      this.feedbackForm.valueChanges
+      this.commentRatingForm.valueChanges
       .subscribe(data=>this.onValueChanged(data))
 
     this.onValueChanged();
   }
   
   onValueChanged(data?: any){
-    if(!this.feedbackForm){ return; }
-    const form = this.feedbackForm;
+    if(!this.commentRatingForm){ return; }
+    const form = this.commentRatingForm;
     for (const field in this.formErrors){
       this.formErrors[field] = '';
        // clear previous error message (if any)
@@ -99,15 +98,14 @@ export class DishdetailComponent implements OnInit {
   }
 
   onSubmit(){
-    let today = new Date();
-    this.feedback = this.feedbackForm.value;
-    this.dish.comments.push(this.feedbackForm.value)
+    this.comment = this.commentRatingForm.value;
+    this.comment.date = new Date().toISOString();
+    this.dish.comments.push(this.comment)
     // console.log(this.feedback);
-    this.feedbackForm.reset({
+    this.commentRatingForm.reset({
       rating: 5,
       author : '',
       comment : '',
-      date : today.toISOString(),
     })
   }
 
