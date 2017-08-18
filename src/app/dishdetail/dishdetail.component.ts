@@ -24,6 +24,8 @@ export class DishdetailComponent implements OnInit {
   commentRatingForm : FormGroup;
   comment : Comment;
 
+  errMess: string;
+
   constructor(private dishservice: DishService,
     private route: ActivatedRoute,
     private location: Location,
@@ -55,7 +57,8 @@ export class DishdetailComponent implements OnInit {
 
     this.route.params
       .switchMap((params: Params) => this.dishservice.getDish(+params['id']))
-      .subscribe(dish1=> {this.dish=dish1;this.setPrevNext(dish1.id) });
+      .subscribe(dish1=> {this.dish=dish1;this.setPrevNext(dish1.id)},
+      errmess => this.errMess = <any>errmess);
   }
 
   setPrevNext(id : number){
