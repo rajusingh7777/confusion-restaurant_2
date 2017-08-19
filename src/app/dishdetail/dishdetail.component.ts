@@ -18,6 +18,7 @@ import { Comment } from '../shared/comment';
 })
 export class DishdetailComponent implements OnInit {
   dish : Dish;
+  dishcopy = null;
   dishIds : number[];
   prev : number;
   next : number;
@@ -57,7 +58,7 @@ export class DishdetailComponent implements OnInit {
 
     this.route.params
       .switchMap((params: Params) => this.dishservice.getDish(+params['id']))
-      .subscribe(dish1=> {this.dish=dish1;this.setPrevNext(dish1.id)},
+      .subscribe(dish1=> {this.dish=dish1; this.dishcopy=dish1; this.setPrevNext(dish1.id)},
       errmess => this.errMess = <any>errmess);
   }
 
@@ -104,7 +105,9 @@ export class DishdetailComponent implements OnInit {
   onSubmit(){
     this.comment = this.commentRatingForm.value;
     this.comment.date = new Date().toISOString();
-    this.dish.comments.push(this.comment)
+    this.dishcopy.comments.push(this.comment);
+    this.dishcopy.save()
+      .subscribe(dish1 => this.dish = dish1);
     // console.log(this.feedback);
     this.commentRatingForm.reset({
       rating: 5,
