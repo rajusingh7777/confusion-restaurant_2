@@ -11,10 +11,25 @@ import 'rxjs/add/operator/switchMap' //use switchMap instead of switchmap to avo
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { Comment } from '../shared/comment';
 
+import { trigger, state, style, animate, transition} from '@angular/animations';
+
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
-  styles: ['.full-width {width: 95%;}']
+  styles: ['.full-width {width: 95%;}'],
+  animations: [
+    trigger('visibility',[
+      state('shown', style({
+        transform: 'scale(1.0)',
+        opacity: 1,
+      })),
+      state('hidden', style({
+        transform: 'scale(0.25)',
+        opacity: 0,
+      })),
+      transition('* => *', animate('0.5s ease-in-out'))
+    ])
+  ]
 })
 export class DishdetailComponent implements OnInit {
   dish : Dish;
@@ -26,6 +41,7 @@ export class DishdetailComponent implements OnInit {
   comment : Comment;
 
   errMess: string;
+  visibility = 'shown';
 
   constructor(private dishservice: DishService,
     private route: ActivatedRoute,
@@ -57,8 +73,8 @@ export class DishdetailComponent implements OnInit {
       .subscribe(dishIds1 => this.dishIds=dishIds1)
 
     this.route.params
-      .switchMap((params: Params) => this.dishservice.getDish(+params['id']))
-      .subscribe(dish1=> {this.dish=dish1; this.dishcopy=dish1; this.setPrevNext(dish1.id)},
+      .switchMap((params: Params) => {this.visibility = 'hidden'; return this.dishservice.getDish(+params['id']);})
+      .subscribe(dish1=> {this.dish=dish1; {this.dishcopy=dish1; this.setPrevNext(dish1.id)}; this.visibility='shown'},
       errmess => this.errMess = <any>errmess);
   }
 
