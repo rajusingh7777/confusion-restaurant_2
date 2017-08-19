@@ -10,34 +10,30 @@ import { Observable } from 'rxjs/Rx';   //to include of operator used Rx instead
 // import 'rxjs/add/Operator/toPromise';
 // import 'rxjs/add/Operator/delay';
 import 'rxjs/add/Operator/catch';
+import { RestangularModule, Restangular } from 'ngx-restangular';
 
 @Injectable()
 export class DishService {
 
-  constructor(private http: Http, private processHTTPMsgService : ProcessHTTPMsgService) { }
+  constructor(private restangular: Restangular, private processHTTPMsgService : ProcessHTTPMsgService) { }
 
   getDishes(): Observable<Dish[]>{
     // introducing server latency with 2 sec delay
     // return Observable.of(DISHES).delay(2000);
-    return this.http.get(baseURL + 'dishes')
-      .map(res => { return this.processHTTPMsgService.extractData(res) })
-      .catch(error =>{return this.processHTTPMsgService.handleError(error)});
+    return this.restangular.all('dishes').getList();
   }
 
   getDish(id1 : number) : Observable<Dish>{
     // introducing server latency with 2 sec delay
     // return Observable.of(DISHES.filter((dish)=>(dish.id===id1))[0]).delay(2000);
-    return this.http.get(baseURL + 'dishes/' + id1)
-      .map(res => { return this.processHTTPMsgService.extractData(res) })
-      .catch(error =>{return this.processHTTPMsgService.handleError(error)});
+    return this.restangular.one('dishes',id1).get();
   }
 
   getFeaturedDish(): Observable<Dish>{
     // introducing server latency with 2 sec delay
     // return Observable.of(DISHES.filter((dish)=>(dish.featured))[0]).delay(2000);
-    return this.http.get(baseURL + 'dishes?featured=true')
-      .map(res => { return this.processHTTPMsgService.extractData(res)[0] })
-      .catch(error =>{return this.processHTTPMsgService.handleError(error)});
+    return this.restangular.all('dishes').getList({featured: true})
+      .map(dishes1 => dishes1[0]);
   }
 
   getDishIds(): Observable<number[]>{
