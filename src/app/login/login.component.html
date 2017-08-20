@@ -4,13 +4,13 @@
   <button md-button md-dialog-close>&times;</button>
 </md-toolbar>
 
-<p>{{ user | json }}</p>
+<!-- <p>{{ user | json }}</p> -->
 
 <form novalidate (ngSubmit)="onSubmit()" #loginForm="ngForm" >
 
   <md-dialog-content>
     <p>
-      <md-input-container dividerColor="{{username.invalid && !username.pristine ? warn : primary}}">
+      <md-input-container dividerColor="{{username.invalid && !username.pristine ? 'warn' : 'primary'}}">
         <input mdInput type="text" placeholder="username" [(ngModel)]="user.username" name="username" #username="ngModel" required>
       </md-input-container>
       <md-hint>
@@ -18,7 +18,7 @@
           <span [hidden]="!username.errors?.required">username is required</span>
         </span>
       </md-hint>
-      <md-input-container dividerColor="{{password.invalid && !password.pristine ? warn : primary}}">
+      <md-input-container dividerColor="{{password.invalid && !password.pristine ? 'warn' : 'primary'}}">
         <input mdInput type="password" placeholder="password" [(ngModel)]="user.password" name="password" #password="ngModel" required>
       </md-input-container>
       <md-hint>
