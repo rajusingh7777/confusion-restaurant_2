@@ -6,7 +6,7 @@
      fxLayoutGap="10px">
 
   <!--dish contents-->
-  <md-card *ngIf="dish" fxFlex>
+  <md-card *ngIf="dish" fxFlex [@expand]>
     <md-card-header>
       <div md-card-avatar></div>
       <md-card-title>
@@ -29,7 +29,7 @@
   </div>  
 
   <!--promotion contents-->
-  <md-card *ngIf="promotion" fxFlex>
+  <md-card *ngIf="promotion" fxFlex [@expand]>
     <md-card-header>
       <div md-card-avatar></div>
       <md-card-title>
@@ -48,7 +48,7 @@
   </div>   
 
   <!--leader contents-->
-  <md-card *ngIf="leader" fxFlex>
+  <md-card *ngIf="leader" fxFlex [@expand]>
     <md-card-header>
       <md-card-title>
         <h3>{{leader.name | uppercase}}</h3>
