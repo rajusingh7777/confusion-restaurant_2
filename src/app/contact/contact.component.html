@@ -35,11 +35,32 @@
           </div>
         </div>
       </div>
+
       <div fxFlex fxFlexOffset="20px" class="form-size">
-        <h3>Send your Feedback</h3>
+          
+          <h3>Send your Feedback</h3>
+          
+          <div [hidden]="!displayFeedback">
+              <md-spinner>Submitting Feedback</md-spinner>
+              <h4>Loading...Please wait</h4>
+          </div>
+    
+          <md-list *ngIf="feedback" [@expand]>
+            <h3>Your Submission</h3>
+            <md-list-item>
+                <p md-line>First Name:&nbsp;{{ feedback.firstname }}</p>
+                <p md-line>Last Name:&nbsp;{{ feedback.lastname }}</p>
+                <p md-line>Tel. Number:&nbsp;{{ feedback.telnum }}</p>
+                <p md-line>Email:&nbsp;{{ feedback.email }}</p>
+                <p md-line>Contact You?:&nbsp;{{ feedback.agree }}</p>
+                <p md-line>How?:&nbsp;{{ feedback.contacttype }}</p>
+                <p md-line>Feedback:&nbsp;{{ feedback.message }}</p>
+            </md-list-item>
+          </md-list>
+
          <!-- <p>{{ feedbackForm.value | json }}  {{ feedbackForm.status | json }}</p>  -->
 
-        <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+        <form id="rs" novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" *ngIf="!feedback" [hidden]="displayFeedback || errMess" [@expand]>
           <p>
             <md-input-container class="half-width" dividerColor="{{ formErrors.firstname ? 'warn' : 'primary' }}">
               <input mdInput formControlName = "firstname" placeholder="First Name" type="text" required>
@@ -91,8 +112,13 @@
               </textarea>
             </md-input-container>
           </p> 
-          <button type="submit" md-button class="background-primary text-floral-white"[disabled]="feedbackForm.invalid">Submit</button>
+          <button type="submit" md-button class="background-primary text-floral-white"[disabled]="feedbackForm.invalid" >Submit</button>
         </form>
-
       </div>
+      
+      <div *ngIf= "errMess">
+          <h2>Error</h2>
+          <h4>{{errMess}}</h4>
+      </div>
+
 </div>
