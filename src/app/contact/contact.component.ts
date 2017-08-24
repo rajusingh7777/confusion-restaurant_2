@@ -106,7 +106,7 @@ export class ContactComponent implements OnInit {
     this.feedbackservice.submitFeedback(this.feedback)
       .subscribe(feedback=>{this.feedback=feedback,this.displayFeedback=false,
         setTimeout(()=>{this.feedback=null},5000)},
-        errmess => {this.errMess = <any>errmess,this.feedback = null});
+        errmess => {this.errMess = <any>errmess});
     
     this.feedbackForm.reset({
       firstname : '',

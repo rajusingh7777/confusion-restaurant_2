@@ -15,11 +15,14 @@ export class FeedbackService {
 
   constructor(private restangular: Restangular, private processHTTPMsgService : ProcessHTTPMsgService) { }
 
-  submitFeedback(model:any): Observable<Feedback>{
-    return this.restangular.all('feedback').post(model, this.feedback)
-  }
-
-  // submitFeedback(feedback:Feedback):Observable<Feedback> {
-  //   return this.restangular.all('feedback').post(feedback);
+  // submitFeedback(model:any): Observable<Feedback>{
+  //   return this.restangular.all('feedback').post(model, this.feedback)
   // }
+
+  // Or above commented method is also ok
+
+  submitFeedback(feedback:Feedback):Observable<Feedback> {
+    return this.restangular.all('feedback').post(feedback);
+  }
+  
 }

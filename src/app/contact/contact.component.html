@@ -40,12 +40,12 @@
           
           <h3>Send your Feedback</h3>
           
-          <div [hidden]="!displayFeedback">
-              <md-spinner>Submitting Feedback</md-spinner>
+          <div [hidden]="!displayFeedback" *ngIf="!errMess">
               <h4>Loading...Please wait</h4>
+              <md-spinner></md-spinner>
           </div>
     
-          <md-list *ngIf="feedback" [@expand]>
+          <md-list *ngIf="feedback && !displayFeedback" [@expand]>
             <h3>Your Submission</h3>
             <md-list-item>
                 <p md-line>First Name:&nbsp;{{ feedback.firstname }}</p>
@@ -60,7 +60,7 @@
 
          <!-- <p>{{ feedbackForm.value | json }}  {{ feedbackForm.status | json }}</p>  -->
 
-        <form id="rs" novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" *ngIf="!feedback" [hidden]="displayFeedback || errMess" [@expand]>
+        <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" *ngIf="!feedback" [hidden]="displayFeedback || errMess" [@expand]>
           <p>
             <md-input-container class="half-width" dividerColor="{{ formErrors.firstname ? 'warn' : 'primary' }}">
               <input mdInput formControlName = "firstname" placeholder="First Name" type="text" required>
@@ -118,7 +118,9 @@
       
       <div *ngIf= "errMess">
           <h2>Error</h2>
-          <h4>{{errMess}}</h4>
+          <h4>Sorry!! Please try after sometime</h4>
+          <h4>Refresh the page</h4>
+          <h4>{{errMess}} </h4>
       </div>
 
 </div>
